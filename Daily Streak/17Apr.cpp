@@ -1,24 +1,32 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
 class Solution {
 public:
-    long long countGood(vector<int>& nums, int k) {
-        unordered_map<int, int> freq;
-        long long prev_count = 0, res = 0;
-        int left = 0;
-        
-        for (int right = 0; right < nums.size(); right++) {
-            // Add new pairs formed by nums[right]
-            prev_count += freq[nums[right]];
-            freq[nums[right]]++;
-
-            // Shrink window until we have fewer than k pairs
-            while (prev_count >= k) {
-                res += nums.size() - right; // Count subarrays starting from left
-                prev_count -= freq[nums[left]] - 1;
-                freq[nums[left]]--;
-                left++;
+    int countPairs(vector<int>& nums, int k) {
+        int ans = 0;
+        for (int i = 0; i < nums.size(); i++) {
+            for (int j = i + 1; j < nums.size(); j++) {
+                if (nums[i] == nums[j] && (i * j) % k == 0) {
+                    ans++;
+                }
             }
         }
-        
-        return res;
+        return ans;
     }
 };
+
+int main() {
+    Solution solution;
+
+    // Example input
+    vector<int> nums = {3, 1, 2, 2, 2, 1, 3};
+    int k = 2;
+
+    int result = solution.countPairs(nums, k);
+    cout << "Number of valid pairs: " << result << endl;
+
+    return 0;
+}
