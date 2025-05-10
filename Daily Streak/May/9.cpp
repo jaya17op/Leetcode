@@ -33,8 +33,6 @@ public:
         for (int i = 0; i <= 9; ++i) 
         {
             vector<vector<long long>> ndp(n / 2 + 1, vector<long long>(s + 1));
-
-            // Step 7: Try all valid distributions of current digit
             for (int j = 0; j <= n / 2; ++j) 
             {
                 for (int k = 0; k <= s; ++k) 
@@ -52,16 +50,10 @@ public:
                     }
                 }
             }
-
-            // Step 9: Move to the new dp state
             dp = ndp;
         }
-
-        // Step 10: Final answer is how many ways to split into equal sum/length
         return dp[n / 2][s];
     }
-
-    // Precompute factorials and inverse factorials modulo mod
     vector<vector<int>> enumFIF(int n, int mod) 
     {
         vector<int> f(n + 1), invf(n + 1);
@@ -78,13 +70,11 @@ public:
             d = a; a = b; b = d % b;
             d = p; p = q; q = d - c * q;
         }
-
         invf[n] = (p < 0) ? p + mod : p;
         for (int i = n - 1; i >= 0; i--) 
         {
             invf[i] = 1LL * invf[i + 1] * (i + 1) % mod;
         }
-
         return {f, invf};
     }
-};
+};  
