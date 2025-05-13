@@ -18,7 +18,6 @@ class Solution {
                         res.push_back(i*100 + j*10 + k);
                     }
                     mpp[j]++;
-    
                 }
                 mpp[i]++;
             }
